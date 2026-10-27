@@ -22,7 +22,7 @@ const figure=(key,compact=false,focus=null)=>{
 };
 const panelHtml=p=>`<div class="teaching-panel"><div class="panel-label">${esc(p.label)}</div><strong>${esc(p.heading)}</strong><ul>${p.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
 
-const promptHtml=(key,n,short=false)=>{const label=key==='agent'?'에이전트 지시문':key==='schoolCode'?'학교 가입 키 확인 안내':'실습 문구';const button=key==='agent'?'지시문':key==='schoolCode'?'안내':'문구';return `<div class="prompt-box${short?' short':''}${key==='schoolCode'?' school-code':''}"><div class="prompt-head"><strong>${label}</strong><button data-copy="${esc(key)}" data-target="prompt-${n}" aria-label="${button} 복사">${button} 복사</button></div><textarea id="prompt-${n}" readonly aria-label="${label}" rows="${key==='schoolCode'?1:key==='agent'?(short?4:10):3}">${esc(prompts[key])}</textarea><pre class="print-prompt">${esc(prompts[key])}</pre><span class="copy-hint">복사가 막히면 문구를 선택해 Ctrl + C를 누르세요.</span></div>`;};
+const promptHtml=(key,n,short=false)=>{const label=key==='agent'?'에이전트 지시문':key==='schoolCode'?'동성고 가입 인증코드':'실습 문구';const button=key==='agent'?'지시문':key==='schoolCode'?'인증코드':'문구';return `<div class="prompt-box${short?' short':''}${key==='schoolCode'?' school-code':''}"><div class="prompt-head"><strong>${label}</strong><button data-copy="${esc(key)}" data-target="prompt-${n}" aria-label="${button} 복사">${button} 복사</button></div><textarea id="prompt-${n}" readonly aria-label="${label}" rows="${key==='schoolCode'?1:key==='agent'?(short?4:10):3}">${esc(prompts[key])}</textarea><pre class="print-prompt">${esc(prompts[key])}</pre><span class="copy-hint">복사가 막히면 문구를 선택해 Ctrl + C를 누르세요.</span></div>`;};
 const independentHelp=s=>{
  const h=s.learning;if(!h)return '';
  const button=x=>`<a class="study-action" href="${esc(x.href)}"${x.type==='newtab'?' target="_blank" rel="noopener"':x.type==='download'?' download':''}>${esc(x.label)}${x.type==='newtab'?' ↗':''}</a>`;
@@ -37,7 +37,7 @@ const selfStudyHtml=(s,token)=>{
  <h3>2. 화면에서 찾을 곳</h3>${table([['위치·메뉴','이렇게 읽습니다'],...p.screen])}
  <h3>3. 순서대로 따라 하기</h3><ol class="steps">${s.steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>
  <div class="study-example"><strong>입력·판단 예</strong><p>${esc(p.example)}</p></div>
- ${s.prompt?`<h3>복사할 전체 문구${s.prompt==='schoolCode'?' · 실제 키는 학교 담당자에게 확인':''}</h3>${p.copyHelp?`<p>${esc(p.copyHelp)}</p>`:''}${promptHtml(s.prompt,token)}`:''}
+ ${s.prompt?`<h3>복사할 전체 문구${s.prompt==='schoolCode'?' · 학교 가입코드':''}</h3>${p.copyHelp?`<p>${esc(p.copyHelp)}</p>`:''}${promptHtml(s.prompt,token)}`:''}
  ${(s.image||s.contextImage||s.detailImage)?`<h3>화면과 대조하기</h3>${s.captureGuidance?`<p class="capture-guidance">${esc(s.captureGuidance)}</p>`:""}<p class="study-image-help">이미지를 누르면 원본이 크게 열립니다. 캡처의 계정·날짜·입력 상태는 촬영 당시의 예이며, 본인 화면에서는 아래 확인 기준으로 판단하세요.</p>${s.contextImage?figure(s.contextImage):''}${s.image?figure(s.image,false,s.guideFocus):''}${s.detailImage?figure(s.detailImage):''}`:''}
  ${s.notice?noticeHtml():''}${s.table?`<h3>내용을 비교해 읽기</h3>${table(s.table)}`:''}${s.diagram?diagram(s.diagram):''}${s.panel?panelHtml(s.panel):''}
  <div class="expected"><strong>예상 결과</strong><p>${esc(s.expected||s.check)}</p></div>

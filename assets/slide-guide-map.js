@@ -730,13 +730,13 @@ window.DONGSUNG_RELATIONS = {
   "p27": {
     "id": "p27",
     "n": 27,
-    "title": "동성고 가입 키는 학교에 확인합니다",
+    "title": "Microsoft 365: 가입·본인 확인",
     "primary": "s107",
     "guides": [
       {
         "id": "s107",
         "n": 107,
-        "title": "Microsoft 365 · 학교 가입 키는 담당자에게 확인합니다"
+        "title": "Microsoft 365 · 동성고 가입코드를 복사합니다"
       },
       {
         "id": "s108",
