@@ -1,5 +1,14 @@
 (() => {
 'use strict';
+document.addEventListener('error',event=>{
+ const node=event.target;
+ if(!(node instanceof HTMLImageElement)&&!(node instanceof SVGImageElement))return;
+ const attr=node instanceof HTMLImageElement?'src':'href',raw=node.getAttribute(attr);if(!raw)return;
+ const url=new URL(raw,location.href);if(url.origin!==location.origin)return;
+ if(!node.dataset.imageRetried){node.dataset.imageRetried='1';url.searchParams.set('image-retry','1');node.setAttribute(attr,url.href);return;}
+ const capture=node.closest('figure');if(!capture||capture.querySelector('.image-load-error'))return;
+ const again=document.createElement('a');again.className='image-load-error';again.href=url.href;again.target='_blank';again.rel='noopener';again.textContent='이미지가 열리지 않으면 원본을 다시 열어 확인하세요 ↗';capture.append(again);
+},true);
 const page=document.body.dataset.page;
 const {prompts,notice,sources}=window.DAESHIN_COMMON, images=window.DAESHIN_IMAGES;
 const slides=page==='slides'?window.DAESHIN_PRESENTATION.slides:(window.DAESHIN_GUIDE?.sections||[]);
