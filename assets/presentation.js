@@ -1383,6 +1383,10 @@ window.DAESHIN_PRESENTATION = {
       "section": "02 SENschool과 연결 도구",
       "title": "Microsoft 365: 동성고 선택",
       "lead": "기존 계정이 있으면 새 가입을 생략합니다.",
+      "entry": {
+        "label": "서울교육청 Microsoft 365 가입센터",
+        "url": "https://o365.sen.go.kr/"
+      },
       "bullets": [
         "동성고등학교 검색",
         "종로구 대학로 156 확인",
